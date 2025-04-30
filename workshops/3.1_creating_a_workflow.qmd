@@ -577,7 +577,7 @@ Inside the `.command.err` script, we can see that the `salmon` command was not f
 <TODO_container> {
   enabled = true
   autoMounts = true
-  cacheDir = "/config/binaries/<TODO_container>/containers_devel/nextflow"
+  cacheDir = "<TODO_cachedir>"
 }
 ```
 
@@ -585,7 +585,7 @@ The `container` process directive can be used to specify the required container:
 
 ```default
 process INDEX {
-    container "/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-salmon-1.10.1--h7e5ed60_0.img"
+    container "<TODO_cachedir>/depot.galaxyproject.org-singularity-salmon-1.10.1--h7e5ed60_0.img"
 
     input:
     path transcriptome
@@ -701,7 +701,7 @@ In the script block, the `salmon quant` command saves the output of the tool as 
 Set the following as the execution container for `QUANTIFICATION`: 
 
 ```default
-/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-salmon-1.10.1--h7e5ed60_0.img
+<TODO_cachedir>/depot.galaxyproject.org-singularity-salmon-1.10.1--h7e5ed60_0.img
 ```
 Assign `index_ch` and `reads_ch` as the inputs to this process, and emit the process outputs as `quant_ch`. View the contents of `quant_ch`
 
@@ -712,7 +712,7 @@ To assign a container to a process, the `container` directive can be used.
 
 ```default
 process QUANTIFICATION {
-    container "/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-salmon-1.10.1--h7e5ed60_0.img"
+    container "<TODO_cachedir>/depot.galaxyproject.org-singularity-salmon-1.10.1--h7e5ed60_0.img"
 
     input:
     path salmon_index
@@ -768,7 +768,7 @@ fastqc -o fastqc_${sample_id}_logs -f fastq -q ${reads}
 Take `fastqc_${sample_id}_logs` as the output of the process, and assign it to the channel `fastqc_ch`. Finally, specify the process container to be the following:
 
 ```default
-/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-fastqc-0.12.1--hdfd78af_0.img
+<TODO_cachedir>/depot.galaxyproject.org-singularity-fastqc-0.12.1--hdfd78af_0.img
 ```
 
 
@@ -779,7 +779,7 @@ The process `FASTQC` is created in `rnaseq.nf`. Since the input channel is a tup
 
 ```default
 process FASTQC {
-    container "/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-fastqc-0.12.1--hdfd78af_0.img"
+    container "<TODO_cachedir>/depot.galaxyproject.org-singularity-fastqc-0.12.1--hdfd78af_0.img"
 
     input:
     tuple val(sample_id), path(reads)
@@ -825,7 +825,7 @@ Let's create a new `MULTIQC` process in our workflow that takes the outputs from
 ```default
 process MULTIQC {
     publishDir params.outdir, mode:'copy'
-    container "/config/binaries/<TODO_container>/containers_devel/nextflow/depot.galaxyproject.org-<TODO_container>-multiqc-1.21--pyhdfd78af_0.img"
+    container "<TODO_cachedir>/depot.galaxyproject.org-singularity-multiqc-1.21--pyhdfd78af_0.img"
 
     input:
     path quantification
