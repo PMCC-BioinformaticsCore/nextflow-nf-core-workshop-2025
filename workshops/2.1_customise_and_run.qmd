@@ -39,17 +39,17 @@ The following sections of the documentation can be used to understand what the p
 +------------------------------------------------------------+-------------------+---------------------+
 | Docs                                                       | Description       | Customisation level |
 +============================================================+===================+=====================+
-| [Introduction](https://nf-co.re/rnaseq/3.11.1)             |  Workflow summary | - workflow          |
+| [Introduction](https://nf-co.re/rnaseq/3.14.0)             |  Workflow summary | - workflow          |
 |                                                            |                   | - process           |
 +------------------------------------------------------------+-------------------+---------------------+
-| [Usage](https://nf-co.re/rnaseq/3.11.1/usage)              | Inputs and options| - workflow          |
+| [Usage](https://nf-co.re/rnaseq/3.14.0/usage)              | Inputs and options| - workflow          |
 |                                                            |                   | - process           |
 +------------------------------------------------------------+-------------------+---------------------+
-| [Parameters](https://nf-co.re/rnaseq/3.11.1/parameters)    | Available flags   | - workflow          |
+| [Parameters](https://nf-co.re/rnaseq/3.14.0/parameters)    | Available flags   | - workflow          |
 |                                                            |                   | - process           |
 |                                                            |                   | - compute resources |
 +------------------------------------------------------------+-------------------+---------------------+
-| [Output](https://nf-co.re/rnaseq/3.11.1/output)            | Files from all    | - workflow          |
+| [Output](https://nf-co.re/rnaseq/3.14.0/output)            | Files from all    | - workflow          |
 |                                                            | processes         | - process           |
 |                                                            | processes         | - tool              |
 +------------------------------------------------------------+-------------------+---------------------+
@@ -63,7 +63,7 @@ View the parameters for the `nf-core/rnaseq` workflow using the command line for
 
 #### **Pipeline structure**
 
-:eyes: Looking at the nf-core/rnaseq pipeline structure provided in the [introduction](https://nf-co.re/rnaseq/3.11.1), we can see that the developers have:
+:eyes: Looking at the nf-core/rnaseq pipeline structure provided in the [introduction](https://nf-co.re/rnaseq/3.14.0), we can see that the developers have:
 
 1. Organised the workflow into 5 stages based on the type of work that is being done
 2. Provided a choice of multiple methods and specified defaults
@@ -96,13 +96,13 @@ The correct answer is **b**. The nf-core/rnaseq pipeline allows users to choose 
 
 The number and type of default and optional parameters an nf-core pipeline accepts is at the discretion of it's developers. However, at a minimum, nf-core pipelines typically:
 
-* Require users to specify a [sample sheet](https://nf-co.re/rnaseq/3.11.1/usage#samplesheet-input)  (`--input`) detailing sample data and relevant metadata
+* Require users to specify a [sample sheet](https://nf-co.re/rnaseq/3.14.0/usage#samplesheet-input)  (`--input`) detailing sample data and relevant metadata
 * Autogenerate or acquire missing reference files from [iGenomes](https://github.com/nf-core/rnaseq/blob/master/conf/igenomes.config) ( using the `--genome`) if not provided by the user.
 
 You can see the recommended (typical) run command and all the parameters available for the nf-core/rnaseq pipeline by running:
 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 --help 
+nextflow run nf-core/rnaseq -r 3.14.0 --help 
 ```
 
 The typical or recommended run command for this pipeline is provided at the top of the screen: 
@@ -168,10 +168,10 @@ HBR_Rep2_ERCC,fastq/HBR_Rep2_ERCC-Mix2_Build37-ErccTranscripts-chr22.read1.fastq
 
 #### **Required input: reference data**
 
-Many nf-core pipelines have a minimum requirement for reference data inputs. The input reference data requirements for this pipeline are provided in the [usage documentation](https://nf-co.re/rnaseq/3.11.1/usage#reference-genome-files). We can replace the `--genome` flag in the typical run command with our own files. To see what reference files we can specify using parameters, rerun the pipeline's help command to view all the available parameters: 
+Many nf-core pipelines have a minimum requirement for reference data inputs. The input reference data requirements for this pipeline are provided in the [usage documentation](https://nf-co.re/rnaseq/3.14.0/usage#reference-genome-files). We can replace the `--genome` flag in the typical run command with our own files. To see what reference files we can specify using parameters, rerun the pipeline's help command to view all the available parameters: 
 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 --help
+nextflow run nf-core/rnaseq -r 3.14.0 --help
 ```
 
 From the **Reference genome options** parameters, we will provide our own files using: 
@@ -202,7 +202,7 @@ Re-run the help command to output the parameters for the `nf-core/rnaseq` pipeli
 
 Run the following: 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 --help --show_hidden_params
+nextflow run nf-core/rnaseq -r 3.14.0 --help --show_hidden_params
 ```
 
 :::
@@ -212,8 +212,8 @@ nextflow run nf-core/rnaseq -r 3.11.1 --help --show_hidden_params
 Now that we have prepared our input and reference data, we will customise the typical run command by:
 
 1. Using Nextflow's `-profile` parameter to specify that we will be running the <TODO_container> profile instead of the Docker profile
-2. Adding additional process-specific flags to [skip duplicate read marking](https://nf-co.re/rnaseq/3.11.1/parameters#skip_markduplicates), [save trimmed reads](https://nf-co.re/rnaseq/3.11.1/parameters#save_trimmed) and [save unaligned reads](https://nf-co.re/rnaseq/3.11.1/parameters#save_unaligned)
-3. Adding additional max resource flags to specify the [number of CPUs](https://nf-co.re/rnaseq/3.11.1/parameters#max_cpus) and [amount of memory](https://nf-co.re/rnaseq/3.11.1/parameters#max_memory) available to the pipeline. 
+2. Adding additional process-specific flags to [skip duplicate read marking](https://nf-co.re/rnaseq/3.14.0/parameters#skip_markduplicates), [save trimmed reads](https://nf-co.re/rnaseq/3.14.0/parameters#save_trimmed) and [save unaligned reads](https://nf-co.re/rnaseq/3.14.0/parameters#save_unaligned)
+3. Adding additional max resource flags to specify the [number of CPUs](https://nf-co.re/rnaseq/3.14.0/parameters#max_cpus) and [amount of memory](https://nf-co.re/rnaseq/3.14.0/parameters#max_memory) available to the pipeline. 
 
 The parameters we will use are:
 
@@ -239,7 +239,7 @@ cd /scratch/users/<your-username>/nfWorkshop; mkdir ./lesson2 && cd $_
 Now that we have prepared our data and chosen which parameters to apply, run the pipeline: 
 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 \
+nextflow run nf-core/rnaseq -r 3.14.0 \
     --input samplesheet.csv \
     --outdir ./lesson2.1 \
     --fasta $materials/ref/chr22_with_ERCC92.fa \
@@ -480,7 +480,7 @@ fastqc  multiqc  pipeline_info  star_salmon  trimgalore
 ::: 
 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 \
+nextflow run nf-core/rnaseq -r 3.14.0 \
   -profile <TODO_container>
   -c my_resources.config \
   -params-file workshop-params.yaml \
@@ -596,7 +596,7 @@ The inclusion of `ext.args` is currently best practice for all DSL2 nf-core modu
 Save the config then resume your run, setting `outdir` to `lesson2.1.8`, applying your custom resources from `my_resources.config`:
 
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 \
+nextflow run nf-core/rnaseq -r 3.14.0 \
   -profile <TODO_container> \
   -c my_resources.config \
   -params-file workshop-params.yaml \
@@ -655,7 +655,7 @@ process {
 
 Run the pipeline
 ```default
-nextflow run nf-core/rnaseq -r 3.11.1 \
+nextflow run nf-core/rnaseq -r 3.14.0 \
   -profile <TODO_container> \
   -c my_resources.config \
   -params-file workshop-params.yaml \

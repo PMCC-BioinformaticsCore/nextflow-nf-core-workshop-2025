@@ -92,7 +92,7 @@ process.executor = 'slurm'
 
 Run the nfcore/rna-seq workflow again
 ```
-nextflow run nf-core/rnaseq -r 3.11.1 \
+nextflow run nf-core/rnaseq -r 3.14.0 \
     -params-file workshop-params.yaml
     -profile singularity \
     --max_memory '6.GB' \

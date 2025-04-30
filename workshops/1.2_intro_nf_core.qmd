@@ -103,7 +103,7 @@ nextflow run nf-core/testpipeline -profile test,<TODO_container> --outdir my_res
 
 nf-core workflows start from a **common template** and follow the same structure. Although you won’t need to edit code in the workflow project directory, having a basic understanding of the project structure and some core terminology will help you understand how to configure its execution.
 
-Let's take a look at the code for the [nf-core/rnaseq](https://nf-co.re/rnaseq/3.11.1) pipeline.
+Let's take a look at the code for the [nf-core/rnaseq](https://nf-co.re/rnaseq/3.14.0) pipeline.
 
 Nextflow DSL2 **workflows** are built up of **subworkflows** and **modules** that are stored as separate `.nf` files.
 
@@ -130,7 +130,7 @@ Like subworkflows, modules can also be shared in the [nf-core modules GitHub rep
 
 Every nf-core workflow has a full list of **parameters** on the nf-core website. When viewing these parameters online, you will also be shown a description and the type of the parameter. Some parameters will have additional text to help you understand when and how a parameter should be used.
 
-[![](./media/1.3_params.excalidraw.png)](https://nf-co.re/rnaseq/3.11.1/parameters)
+[![](./media/1.3_params.excalidraw.png)](https://nf-co.re/rnaseq/3.14.0/parameters)
 
 Parameters and their descriptions can also be viewed in the command line using the `run` command with the `--help` parameter:
 
