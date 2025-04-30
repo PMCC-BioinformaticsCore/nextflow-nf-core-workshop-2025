@@ -63,8 +63,8 @@ Previously, we created three Nextflow files and one config file:
 ```default
 #!/usr/bin/env nextflow
 
-params.reads = "/scratch/users/.../training/nf-training/data/ggal/*_{1,2}.fq"
-params.transcriptome_file = "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa"
+params.reads = "/scratch/users/.../<TODO_nxfdata>/*_{1,2}.fq"
+params.transcriptome_file = "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa"
 
 reads_ch = Channel.fromFilePairs("$params.reads")
 
@@ -537,7 +537,7 @@ The `scatter` operation involves distributing large input data into smaller chun
 One very simple example of native `scatter` is how nextflow handles Channel factories with the `Channel.fromPath` or `Channel.fromFilePairs` method, where multiple input data is processed in parallel. 
 
 ```default
-params.reads = "/scratch/users/.../training/nf-training/data/ggal/*_{1,2}.fq"
+params.reads = "/scratch/users/.../<TODO_nxfdata>/*_{1,2}.fq"
 reads_ch = Channel.fromFilePairs("$params.reads")
 
 include { FASTQC as FASTQC_one } from './modules.nf'
@@ -585,7 +585,7 @@ workflow {
 **Exercise** 
 
 ```default
-params.infile = "/scratch/users/rlupat/nfWorkshop/dev1/training/nf-training/data/ggal/*_{1,2}.fq"
+params.infile = "/scratch/users/rlupat/nfWorkshop/dev1/<TODO_nxfdata>/*_{1,2}.fq"
 params.size = 1000
 
 workflow {
@@ -748,7 +748,7 @@ workflow {
 
 ```default
 workflow {
-  Channel.fromPath("/scratch/users/rlupat/nfWorkshop/dev1/training/nf-training/data/ggal/*_1.fq", checkIfExists: true) \
+  Channel.fromPath("/scratch/users/rlupat/nfWorkshop/dev1/<TODO_nxfdata>/*_1.fq", checkIfExists: true) \
     | collectFile(name: 'combined_1.fq', newLine:true) \
     | view
 }

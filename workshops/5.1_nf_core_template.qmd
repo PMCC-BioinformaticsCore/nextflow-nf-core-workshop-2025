@@ -357,7 +357,7 @@ For the duration of this workshop we are going to use the data from `nf-training
 We are also going to update our `test.config` to contain the `igenomes_base` parameter, as we have a local cache on the cluster.
 
 ```default
-input = "/home/Shared/For_NF_Workshop/training/nf-training/data/ggal/samplesheet.csv"
+input = "/home/Shared/For_NF_Workshop/<TODO_nxfdata>/samplesheet.csv"
 outdir = "/scratch/users/${USER}/myrnaseqtest"
 
 // genome references

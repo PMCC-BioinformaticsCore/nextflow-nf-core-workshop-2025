@@ -9,15 +9,15 @@ from: markdown+emoji
 
 ### **2.1.1. Pipeline setup**
 
-In this session we are using Singularity containers to manage software installation for all `nf-core/rnaseq` tools. Confirm the Singularity cache directory we set in the previous session using the `$NXF_SINGULARITY_CACHEDIR` [Nextflow environmental variable](https://www.nextflow.io/docs/latest/config.html#environment-variables): 
+In this session we are using <TODO_container> containers to manage software installation for all `nf-core/rnaseq` tools. Confirm the <TODO_container> cache directory we set in the previous session using the `$NXF_<TODO_container>_CACHEDIR` [Nextflow environmental variable](https://www.nextflow.io/docs/latest/config.html#environment-variables): 
 
 ```default
-echo $NXF_SINGULARITY_CACHEDIR
+echo $NXF_<TODO_container>_CACHEDIR
 ```
 :eyes: This should match the directory you set in the previous session:
 
 ```default
-/config/binaries/singularity/containers_devel/nextflow
+/config/binaries/<TODO_container>/containers_devel/nextflow
 ```
 
 ### **2.1.2. Design your run command**
@@ -127,14 +127,14 @@ Nextflow-specific parameters use one (`-`) hyphen, whereas pipeline-specific par
 Most of us will need to adjust the default run command for our experiments. Today we'll be adjusting the typical nf-core/rnaseq run command by: 
 
 1. Providing our own reference files
-2. Using the Singularity software management profile, instead of Docker 
+2. Using the <TODO_container> software management profile, instead of Docker 
 3. Customising the execution of some processes 
 4. Specifying the computing resource limitations of our instances (2 CPUs, 8 Gb RAM)
 
 Our input fastq files (`fastq/`), reference data (`ref/`), and full sample sheet (`samplesheet.csv`) are already available on the cluster. Take a look at the files: 
 
 ```default
-ls -l /data/seqliner/test-data/rna-seq
+ls -l <TODO_testdata>
 ```
 
 ```default
@@ -147,7 +147,7 @@ drwxrwsr-x 2 jyu bioinf-core 8192 Sep 14 10:12 ref
 To make life easier store the path to our test data in a variable.
 
 ```default
-materials=/data/seqliner/test-data/rna-seq
+materials=<TODO_testdata>
 ```
 
 Given we are only testing the pipeline in this session, we only need to work with a couple of samples. Copy the first two samples from the full prepared sample sheet to a local version of the file:
@@ -211,13 +211,13 @@ nextflow run nf-core/rnaseq -r 3.11.1 --help --show_hidden_params
 
 Now that we have prepared our input and reference data, we will customise the typical run command by:
 
-1. Using Nextflow's `-profile` parameter to specify that we will be running the Singularity profile instead of the Docker profile
+1. Using Nextflow's `-profile` parameter to specify that we will be running the <TODO_container> profile instead of the Docker profile
 2. Adding additional process-specific flags to [skip duplicate read marking](https://nf-co.re/rnaseq/3.11.1/parameters#skip_markduplicates), [save trimmed reads](https://nf-co.re/rnaseq/3.11.1/parameters#save_trimmed) and [save unaligned reads](https://nf-co.re/rnaseq/3.11.1/parameters#save_unaligned)
 3. Adding additional max resource flags to specify the [number of CPUs](https://nf-co.re/rnaseq/3.11.1/parameters#max_cpus) and [amount of memory](https://nf-co.re/rnaseq/3.11.1/parameters#max_memory) available to the pipeline. 
 
 The parameters we will use are:
 
-* `-profile singularity`
+* `-profile <TODO_container>`
 * `--skip_markduplicates true`
 * `--save_trimmed true`
 * `--save_unaligned true`
@@ -244,7 +244,7 @@ nextflow run nf-core/rnaseq -r 3.11.1 \
     --outdir ./lesson2.1 \
     --fasta $materials/ref/chr22_with_ERCC92.fa \
     --gtf $materials/ref/chr22_with_ERCC92.gtf \
-    -profile singularity \
+    -profile <TODO_container> \
     --skip_markduplicates true \
     --save_trimmed true \
     --save_unaligned true \
@@ -280,8 +280,8 @@ Convert the parameter definitions into a YAML file, `workshop-params.yaml`, comp
 ::: {.callout-caution collapse="true"}
 ### Solution
 ```default
-gtf: "/data/seqliner/test-data/rna-seq/ref/chr22_with_ERCC92.gtf"
-fasta: "/data/seqliner/test-data/rna-seq/ref/chr22_with_ERCC92.fa"
+gtf: "<TODO_testdata>/ref/chr22_with_ERCC92.gtf"
+fasta: "<TODO_testdata>/ref/chr22_with_ERCC92.fa"
 skip_markduplicates: true
 save_trimmed: true
 save_unaligned: true
@@ -320,7 +320,7 @@ The generic `base.config` sets the default **compute resource settings** to be u
 Then take a few moments to look through [workflow/nextflow.config](https://github.com/nf-core/rnaseq/blob/3.11.1/nextflow.config)
 
 
-The `nextflow.config` file is more **workflow-specific**, and sets the **defaults for the workflow parameters**, as well as defines profiles to change the default **software access** from `$PATH` to the specified access method, eg Singularity. 
+The `nextflow.config` file is more **workflow-specific**, and sets the **defaults for the workflow parameters**, as well as defines profiles to change the default **software access** from `$PATH` to the specified access method, eg <TODO_container>. 
 
 <span style="color:#000080;"> We can over-ride these parameters on the command line or with a parameters file, and over-ride the default behaviour of searching for tools on `$PATH` by specifying a `-profile`.</span>  
 
@@ -350,7 +350,7 @@ To uncover these answers, we need to understand what **process label** has been 
 
 In our runs so far, we have avoided the need for a custom resource configuration file by:
 
-- Over-riding the default tool access method of `$PATH` by specifying the `singularity` profile defined in `workflow/nextflow.config`
+- Over-riding the default tool access method of `$PATH` by specifying the `<TODO_container>` profile defined in `workflow/nextflow.config`
   - Without this, our runs for this workshop would fail because we do not have the workflow tools (eg STAR, salmon) installed locally on our VMs
 - Over-riding the default values for CPUs and memory set in `nextflow.config` with `--max_cpus 2` and `--max_memory 6.GB` to fit within our interactive sessions
   - Without these parameters, our runs would fail at the first process that requests more than this, because Nextflow workflows check that the requested resources are available before attempting to execute a workflow  
@@ -481,7 +481,7 @@ fastqc  multiqc  pipeline_info  star_salmon  trimgalore
 
 ```default
 nextflow run nf-core/rnaseq -r 3.11.1 \
-  -profile singularity
+  -profile <TODO_container>
   -c my_resources.config \
   -params-file workshop-params.yaml \
   --outdir lesson2.1.6 \
@@ -597,7 +597,7 @@ Save the config then resume your run, setting `outdir` to `lesson2.1.8`, applyin
 
 ```default
 nextflow run nf-core/rnaseq -r 3.11.1 \
-  -profile singularity \
+  -profile <TODO_container> \
   -c my_resources.config \
   -params-file workshop-params.yaml \
   --outdir lesson2.1.8 \
@@ -656,7 +656,7 @@ process {
 Run the pipeline
 ```default
 nextflow run nf-core/rnaseq -r 3.11.1 \
-  -profile singularity \
+  -profile <TODO_container> \
   -c my_resources.config \
   -params-file workshop-params.yaml \
   --outdir lesson2.1.8 \

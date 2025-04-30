@@ -13,7 +13,7 @@ from: markdown+emoji
 Currently, we have defined the `reads` parameter as a string:
 
 ```default
-params.reads = "/.../training/nf-training/data/ggal/gut_{1,2}.fq"
+params.reads = "/.../<TODO_nxfdata>/gut_{1,2}.fq"
 ```
 
 To group the `reads` parameter, the `fromFilePairs` channel factory can be used. Add the following to the `workflow` block and run the workflow:
@@ -26,39 +26,39 @@ reads_ch.view()
 The `reads` parameter is being converted into a file pair group using `fromFilePairs`, and is assigned to `reads_ch`. The `reads_ch` consists of a tuple of two items -- the first is the grouping key of the matching pair (gut), and the second is a list of paths to each file:
 
 ```default
-[gut, [/.../training/nf-training/data/ggal/gut_1.fq, /.../training/nf-training/data/ggal/gut_2.fq]]
+[gut, [/.../<TODO_nxfdata>/gut_1.fq, /.../<TODO_nxfdata>/gut_2.fq]]
 ```
 
 Glob patterns can also be used to create channels of file pair groups. Inside the data directory, we have pairs of gut, liver, and lung files that can all be read into `reads_ch`. 
 
 ```default
->>> ls "/.../training/nf-training/data/ggal/"
+>>> ls "/.../<TODO_nxfdata>/"
 
 gut_1.fq  gut_2.fq  liver_1.fq  liver_2.fq  lung_1.fq  lung_2.fq  transcriptome.fa
 ```
 
-Run the `rnaseq.nf` workflow specifying all `.fq` files inside `/.../training/nf-training/data/ggal/` as the `reads` parameter via the command line:
+Run the `rnaseq.nf` workflow specifying all `.fq` files inside `/.../<TODO_nxfdata>/` as the `reads` parameter via the command line:
 
 ```default
-nextflow run rnaseq.nf --reads '/.../training/nf-training/data/ggal/*_{1,2}.fq'
+nextflow run rnaseq.nf --reads '/.../<TODO_nxfdata>/*_{1,2}.fq'
 ```
 File paths that include one or more wildcards (ie. `*`, `?`, etc.) MUST be wrapped in single-quoted characters to avoid Bash expanding the glob on the command line. 
 
 The `reads_ch` now contains three tuple elements with unique grouping keys:
 
 ```default
-[gut, [/.../training/nf-training/data/ggal/gut_1.fq, /.../training/nf-training/data/ggal/gut_2.fq]]
-[liver, [/.../training/nf-training/data/ggal/liver_1.fq, /.../training/nf-training/data/ggal/liver_2.fq]]
-[lung, [/.../training/nf-training/data/ggal/lung_1.fq, /.../training/nf-training/data/ggal/lung_2.fq]]
+[gut, [/.../<TODO_nxfdata>/gut_1.fq, /.../<TODO_nxfdata>/gut_2.fq]]
+[liver, [/.../<TODO_nxfdata>/liver_1.fq, /.../<TODO_nxfdata>/liver_2.fq]]
+[lung, [/.../<TODO_nxfdata>/lung_1.fq, /.../<TODO_nxfdata>/lung_2.fq]]
 ```
 
 The grouping key metadata can also be explicitly created without having to rely on file names, using the `map` channel operator. Let's start by creating a samplesheet `rnaseq_samplesheet.csv` with column headings `sample_name`, `fastq1`, and `fastq2`, and fill in a custom `sample_name`, along with the paths to the `.fq` files.
 
 ```default
 sample_name,fastq1,fastq2
-gut_sample,/.../training/nf-training/data/ggal/gut_1.fq,/.../training/nf-training/data/ggal/gut_2.fq
-liver_sample,/.../training/nf-training/data/ggal/liver_1.fq,/.../training/nf-training/data/ggal/liver_2.fq
-lung_sample,/.../training/nf-training/data/ggal/lung_1.fq,/.../training/nf-training/data/ggal/lung_2.fq
+gut_sample,/.../<TODO_nxfdata>/gut_1.fq,/.../<TODO_nxfdata>/gut_2.fq
+liver_sample,/.../<TODO_nxfdata>/liver_1.fq,/.../<TODO_nxfdata>/liver_2.fq
+lung_sample,/.../<TODO_nxfdata>/lung_1.fq,/.../<TODO_nxfdata>/lung_2.fq
 ```
 
 Let's now supply the path to `rnaseq_samplesheet.csv` to the `reads` parameter in `rnaseq.nf`. 
@@ -89,9 +89,9 @@ reads: $params.reads
 executor >  local (1)
 [4e/eeae2a] process > INDEX [100%] 1 of 1 ✔
 /.../rnaseq_samplesheet.csv
-[sample_name:gut_sample, fastq1:/.../training/nf-training/data/ggal/gut_1.fq, fastq2:/.../training/nf-training/data/ggal/gut_2.fq]
-[sample_name:liver_sample, fastq1:/.../training/nf-training/data/ggal/liver_1.fq, fastq2:/.../training/nf-training/data/ggal/liver_2.f]
-[sample_name:lung_sample, fastq1:/.../training/nf-training/data/ggal/lung_1.fq, fastq2:/.../training/nf-training/data/ggal/lung_2.fq]
+[sample_name:gut_sample, fastq1:/.../<TODO_nxfdata>/gut_1.fq, fastq2:/.../<TODO_nxfdata>/gut_2.fq]
+[sample_name:liver_sample, fastq1:/.../<TODO_nxfdata>/liver_1.fq, fastq2:/.../<TODO_nxfdata>/liver_2.f]
+[sample_name:lung_sample, fastq1:/.../<TODO_nxfdata>/lung_1.fq, fastq2:/.../<TODO_nxfdata>/lung_2.fq]
 
 ```
 
@@ -119,9 +119,9 @@ Launching `rnaseq.nf` [happy_torricelli] DSL2 - revision: e9e1499a97
 reads: rnaseq_samplesheet.csv
 reads: $params.reads
 [-        ] process > INDEX -
-[gut_sample, [/.../training/nf-training/data/ggal/gut_1.fq, /.../training/nf-training/data/ggal/gut_2.fq]]
-[liver_sample, [/home/sli/test/training/nf-training/data/ggal/liver_1.fq, /.../training/nf-training/data/ggal/liver_2.fq]]
-[lung_sample, [/.../training/nf-training/data/ggal/lung_1.fq, /.../training/nf-training/data/ggal/lung_2.fq]]
+[gut_sample, [/.../<TODO_nxfdata>/gut_1.fq, /.../<TODO_nxfdata>/gut_2.fq]]
+[liver_sample, [/home/sli/test/<TODO_nxfdata>/liver_1.fq, /.../<TODO_nxfdata>/liver_2.fq]]
+[lung_sample, [/.../<TODO_nxfdata>/lung_1.fq, /.../<TODO_nxfdata>/lung_2.fq]]
 ```
 
 The custom grouping key can be created from multiple values in the samplesheet. For example, `grp_meta = [sample : row.sample_name , file : row.fastq1]` will create the metadata key using both the `sample_name` and `fastq1` file names. The samplesheet can also be created to include multiple sample characteristics, such as `lane`, `data_type`, etc. Each of these characteristics can be used to ensure an adequte grouping key is creaed for that sample. 
