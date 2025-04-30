@@ -112,17 +112,19 @@ Most nf-core workflows consist of a single **workflow** file (there are a few ex
 A **subworkflow** is a groups of modules that are used in combination with each other and have a common purpose. Subworkflows improve workflow readability and help with the reuse of modules within a workflow. The nf-core community also shares subworkflows in the [nf-core subworkflows GitHub repository](https://github.com/nf-core/modules/tree/master/subworkflows/nf-core). Local subworkflows are workflow specific that are not shared in the nf-core subworkflows repository.
 
 
-Let's take a look at the [`BAM_STATS_SAMTOOLS`](https://github.com/nf-core/rnaseq/tree/3.11.1/subworkflows/nf-core/bam_stats_samtools) subworkflow.
+Let's take a look at the [BAM_STATS_SAMTOOLS](https://github.com/nf-core/rnaseq/tree/3.11.1/subworkflows/nf-core/bam_stats_samtools) subworkflow.
 
 This subworkflow is comprised of the following modules:
-    - [`SAMTOOLS_STATS`](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/stats/main.nf)
-    - [`SAMTOOLS_IDXSTATS`](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/faidx/main.nf), and
-    - [`SAMTOOLS_FLAGSTAT`](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/flagstat/main.nf)
+
+  - [SAMTOOLS_STATS](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/stats/main.nf)
+  - [SAMTOOLS_IDXSTATS](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/faidx/main.nf)
+  - [SAMTOOLS_FLAGSTAT](https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/flagstat/main.nf)
 
 A **module** is a wrapper for a process, most modules will execute a single tool and contain the following definitions:
-    - [inputs](https://www.nextflow.io/docs/latest/process.html#inputs)
-    - [outputs](https://www.nextflow.io/docs/latest/process.html#outputs), and
-    - [script](https://www.nextflow.io/docs/latest/process.html#script) block.
+
+  - [inputs](https://www.nextflow.io/docs/latest/process.html#inputs)
+  - [outputs](https://www.nextflow.io/docs/latest/process.html#outputs)
+  - [script](https://www.nextflow.io/docs/latest/process.html#script)
 
 Like subworkflows, modules can also be shared in the [nf-core modules GitHub repository](https://github.com/nf-core/modules/tree/master/modules/nf-core) or stored as a local module. All modules from the nf-core repository are version controlled and tested to ensure reproducibility. Local modules are workflow specific that are not shared in the nf-core modules repository.
 
@@ -247,7 +249,7 @@ params {
 Include the custom `.config` file in your execution command with the `-c` option:
 
 ```default
-nextflow run nf-core/testpipeline --outdir my_results -profile test,singularity -resume -c my_custom.config
+nextflow run nf-core/testpipeline --outdir my_results -profile test,<TODO_container> -resume -c my_custom.config
 ```
 
 Check that it has been applied:
@@ -265,7 +267,7 @@ We will revisit this at the end of the module
 :::
 
 ### **1.2.7 Parameter files**
-Parameter files are used to define `params` options for a pipeline, generally written in the YAML format. They are added to a pipeline with the flag `--params-file`
+Parameter files are used to define `params` options for a pipeline, generally written in the YAML format. They are added to a pipeline with the flag `-params-file`
 
 Example YAML:
 ```default
@@ -293,7 +295,7 @@ multiqc_title: "black"
 ```
 
 ```default
-nextflow run nf-core/testpipeline -profile test,singularity --params-file my_params.yml --outdir Lesson1_2
+nextflow run nf-core/testpipeline -profile test,singularity -params-file my_params.yml --outdir Lesson1_2
 ```
 
 :::
