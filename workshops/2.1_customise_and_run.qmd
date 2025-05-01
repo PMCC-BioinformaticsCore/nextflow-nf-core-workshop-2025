@@ -57,7 +57,7 @@ The following sections of the documentation can be used to understand what the p
 
 ### **Challenge**{.unlisted}
 
-View the parameters for the `nf-core/rnaseq` workflow using the command line for the specific version `3.11.1`
+View the parameters for the `nf-core/rnaseq` workflow using the command line for the specific version `3.14.0`
 
 :::
 
@@ -193,7 +193,7 @@ Keep in mind that both this help command and the nf-core parameters documentatio
 ::: callout-tip
 ### **Challenge**{.unlisted}
 
-Re-run the help command to output the parameters for the `nf-core/rnaseq` pipeline and including all hidden parameters for version `3.11.1`
+Re-run the help command to output the parameters for the `nf-core/rnaseq` pipeline and including all hidden parameters for version `3.14.0`
 
 :::
 
@@ -310,14 +310,14 @@ Nextflow's portability is achieved by separating **workflow implementation** (in
 Together `nextflow.config` and `base.config`, define the default execution settings and parameters of an nf-core workflow. 
 
 Let's take a look at these two configuration files to gain an understanding of how defaults are applied.
-[conf/base.config](https://github.com/nf-core/rnaseq/blob/3.11.1/conf/base.config)
+[conf/base.config](https://github.com/nf-core/rnaseq/blob/3.14.0/conf/base.config)
 
 
 The generic `base.config` sets the default **compute resource settings** to be used by the processes in the nf-core workflow. It uses process labels to enable different sets of resources to be applied to groups of processes that require similar compute. These labels are specified within the `main.nf` file for a process. 
 
 <span style="color:#000080;"> We can over-ride these default compute resources using a custom configuration file.</span>
 
-Then take a few moments to look through [workflow/nextflow.config](https://github.com/nf-core/rnaseq/blob/3.11.1/nextflow.config)
+Then take a few moments to look through [workflow/nextflow.config](https://github.com/nf-core/rnaseq/blob/3.14.0/nextflow.config)
 
 
 The `nextflow.config` file is more **workflow-specific**, and sets the **defaults for the workflow parameters**, as well as defines profiles to change the default **software access** from `$PATH` to the specified access method, eg <TODO_container>. 
@@ -340,7 +340,7 @@ Within `workflow/conf/base.config`, the `check_max()` function over-rides the pr
 
 ::: {.callout-caution collapse="true"}
 ### Solution
-To uncover these answers, we need to understand what **process label** has been assigned to the `STAR_ALIGN` [module](https://github.com/nf-core/rnaseq/blob/3.11.1/modules/nf-core/star/align/main.nf). 
+To uncover these answers, we need to understand what **process label** has been assigned to the `STAR_ALIGN` [module](https://github.com/nf-core/rnaseq/blob/3.14.0/modules/nf-core/star/align/main.nf). 
 
 `STAR_ALIGN` has the label `process_high` which has the settings 12 CPUs, 72 GB mem, 16 hrs walltime applied by the default `base.config`. We have previosuly applied `--max_cpus 2` and `--max_memory 6.GB`, so the `check_max()` function would have reduced the resources given to the STAR alignment process to 2 CPUs and 6 GB RAM, while retaining the default max walltime. 
 :::
@@ -391,7 +391,7 @@ The following exercise is trivial given the limitations of our interactive sessi
 
 
 ::: {.callout-note}
-- :bulb: View the file [conf/base.config](https://github.com/nf-core/rnaseq/blob/3.11.1/conf/base.config) for syntax example 
+- :bulb: View the file [conf/base.config](https://github.com/nf-core/rnaseq/blob/3.14.0/conf/base.config) for syntax example 
 - Add a `process` scope inside the `my_resources.config`
 - Use `withLabel: <label_name>` to set resources for each of the following labels:
   - `process_low`
@@ -521,7 +521,7 @@ Identify the execution path for the STAR_ALIGN module:
 ::: {.callout-note}
 ### Finding the module execution path
 - The extended execution path is built from the pipeline, workflow, subworkflow, and module names
-- It can be tricky to evaluate the path used to execute a module. If you are unsure of how to build the path you can copy it from the  [view the modules.conf file on Github](https://github.com/nf-core/rnaseq/blob/3.11.1/conf/modules.config)
+- It can be tricky to evaluate the path used to execute a module. If you are unsure of how to build the path you can copy it from the  [view the modules.conf file on Github](https://github.com/nf-core/rnaseq/blob/3.14.0/conf/modules.config)
 :::
 
 ::: {.callout-note}
