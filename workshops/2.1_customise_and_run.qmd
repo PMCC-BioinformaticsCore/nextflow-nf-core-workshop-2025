@@ -7,7 +7,7 @@ output:
 from: markdown+emoji
 ---
 
-### **2.1.1. Pipeline setup**
+### **4.1.1. Pipeline setup**
 
 In this session we are using <TODO_container> containers to manage software installation for all `nf-core/rnaseq` tools. Confirm the <TODO_container> cache directory we set in the previous session using the `$NXF_<TODO_container>_CACHEDIR` [Nextflow environmental variable](https://www.nextflow.io/docs/latest/config.html#environment-variables): 
 
@@ -20,7 +20,7 @@ echo $NXF_<TODO_container>_CACHEDIR
 /config/binaries/<TODO_container>/containers_devel/nextflow
 ```
 
-### **2.1.2. Design your run command**
+### **4.1.2. Design your run command**
 
 As we learnt in [lesson 1.2.4](../workshops/1.2_intro_nf_core.qmd#viewing-parameters), all nf-core pipelines have a unique set of pipeline-specific parameters that can be used in conjunction with Nextflow parameters to configure the workflow. Generally, nf-core pipelines can be customised at a few different levels:
 
@@ -229,7 +229,7 @@ You can see how we've customised the typical run command in the diagram below:
 ![](./media/2.1_custom-command.png)
 
 
-### **2.1.3. Run the pipeline**
+### **4.1.3. Run the pipeline**
 
 We will also create a separate output directory for this section. 
 ```default
@@ -306,7 +306,7 @@ Nextflow's portability is achieved by separating **workflow implementation** (in
 :::  
 
 
-### **2.1.4. Default nf-core configuration**
+### **4.1.4. Default nf-core configuration**
 Together `nextflow.config` and `base.config`, define the default execution settings and parameters of an nf-core workflow. 
 
 Let's take a look at these two configuration files to gain an understanding of how defaults are applied.
@@ -346,7 +346,7 @@ To uncover these answers, we need to understand what **process label** has been 
 :::
 
 
-### **2.1.5. When to use a custom config file**
+### **4.1.5. When to use a custom config file**
 
 In our runs so far, we have avoided the need for a custom resource configuration file by:
 
@@ -364,7 +364,7 @@ These are basic configurations. What if:
 - We wanted to customise outputs beyond what was possible with the nf-core workflow parameters?
  
 
-### **2.1.6. Custom resource configuration using process labels**
+### **4.1.6. Custom resource configuration using process labels**
 
 Capping workflow resources using the `max` parameters is a bit of a blunt instrument. 
 
@@ -418,7 +418,7 @@ process {
 
 Save the file then re-run the workflow with our custom configuration, setting `outdir` parameter to `lesson2.1.7`:
 
-### **2.1.7. Examine the outputs**
+### **4.1.7. Examine the outputs**
 
 Once your pipeline has completed, you should see this message printed to your terminal:
 
@@ -503,7 +503,7 @@ To avoid confusion, it is best not to name your custom configuration files `next
 ::: 
 
 
-### **2.1.8. Custom resource configuration using process names**
+### **4.1.8. Custom resource configuration using process names**
 
 This exercise will demonstrate how to adjust the resource configurations for a specific process using the `withName` process selector, using the STAR_ALIGN module as example. 
 
