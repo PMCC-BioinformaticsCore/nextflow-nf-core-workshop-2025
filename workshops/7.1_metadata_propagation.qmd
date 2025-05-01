@@ -108,9 +108,9 @@ As a quick overview
 Assuming we have the samplesheet
 ```default
 sample_name,fastq1,fastq2
-gut_sample,/.../training/nf-training/data/ggal/gut_1.fq,/.../training/nf-training/data/ggal/gut_2.fq
-liver_sample,/.../training/nf-training/data/ggal/liver_1.fq,/.../training/nf-training/data/ggal/liver_2.fq
-lung_sample,/.../training/nf-training/data/ggal/lung_1.fq,/.../training/nf-training/data/ggal/lung_2.fq
+gut_sample,/.../<TODO_nxfdata>/gut_1.fq,/.../<TODO_nxfdata>/gut_2.fq
+liver_sample,/.../<TODO_nxfdata>/liver_1.fq,/.../<TODO_nxfdata>/liver_2.fq
+lung_sample,/.../<TODO_nxfdata>/lung_1.fq,/.../<TODO_nxfdata>/lung_2.fq
 ```
 
 We can set up a workflow to read in these files as:
@@ -159,7 +159,7 @@ Here we will look at 2 use cases.
 As we have seen in examples/challenges in the operators section, it is important to ensure that the format of the channels that you provide as inputs match the process definition.
 
 ```default
-params.reads = "/home/Shared/For_NF_Workshop/training/nf-training/data/ggal/*_{1,2}.fq"
+params.reads = "/home/Shared/For_NF_Workshop/<TODO_nxfdata>/*_{1,2}.fq"
 
 process printNumLines {
     input:

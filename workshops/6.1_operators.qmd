@@ -61,8 +61,8 @@ Previously, we created three Nextflow files and one config file:
 ```default
 #!/usr/bin/env nextflow
 
-params.reads = "/scratch/users/.../training/nf-training/data/ggal/*_{1,2}.fq"
-params.transcriptome_file = "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa"
+params.reads = "/scratch/users/.../<TODO_nxfdata>/*_{1,2}.fq"
+params.transcriptome_file = "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa"
 
 reads_ch = Channel.fromFilePairs("$params.reads")
 
@@ -228,15 +228,15 @@ Output:
 For our RNA-seq pipeline, let's first create separate transcriptome files for each organ: `lung.transcriptome.fa`, `liver.transcriptome.fa`, `gut.transcriptome.fa`
 
 ```default
-cp "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa" "/scratch/users/.../training/nf-training/data/ggal/lung.transcriptome.fa"
-cp "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa" "/scratch/users/.../training/nf-training/data/ggal/liver.transcriptome.fa"
-mv "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa" "/scratch/users/.../training/nf-training/data/ggal/gut.transcriptome.fa"
+cp "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa" "/scratch/users/.../<TODO_nxfdata>/lung.transcriptome.fa"
+cp "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa" "/scratch/users/.../<TODO_nxfdata>/liver.transcriptome.fa"
+mv "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa" "/scratch/users/.../<TODO_nxfdata>/gut.transcriptome.fa"
 ```
 
 Ensure `transcriptome.fa` no longer exists: 
 
 ```default
->>> ls /scratch/users/.../training/nf-training/data/ggal/
+>>> ls /scratch/users/.../<TODO_nxfdata>/
 gut_1.fq
 gut_2.fq
 gut.transcriptome.fa
@@ -254,7 +254,7 @@ lung.transcriptome.fa
 Currently in the `rnaseq.nf` script, we define the `transcriptome_file` parameter to be a single file. 
 
 ```default
-params.transcriptome_file = "/scratch/users/.../training/nf-training/data/ggal/transcriptome.fa"
+params.transcriptome_file = "/scratch/users/.../<TODO_nxfdata>/transcriptome.fa"
 ```
 
 Set the `transcriptome_file` parameter to match for all three `.fa` files using a glob path matcher.
@@ -268,9 +268,9 @@ def sample = fasta.getSimpleName()
 ```
 Use the `view()` channel operator to view the `transcriptome_ch` channel. The expected output:
 ```default
-[lung, /scratch/users/.../training/nf-training/data/ggal/lung.transcriptome.fa]
-[liver, /scratch/users/.../training/nf-training/data/ggal/liver.transcriptome.fa]
-[gut, /scratch/users/.../training/nf-training/data/ggal/gut.transcriptome.fa]
+[lung, /scratch/users/.../<TODO_nxfdata>/lung.transcriptome.fa]
+[liver, /scratch/users/.../<TODO_nxfdata>/liver.transcriptome.fa]
+[gut, /scratch/users/.../<TODO_nxfdata>/gut.transcriptome.fa]
 ```
 
 ::: {.callout-note appearance="simple" collapse="true"}
@@ -399,9 +399,9 @@ In our RNA-seq pipeline, create a channel `quant_inputs_ch` that contains the `r
 
 The expected output:
 ```default
-[liver, /scratch/users/.../work/cf/42458b80e050a466d62baf99d0c1cf/salmon_idx, [/scratch/users/.../training/nf-training/data/ggal/liver_1.fq, /scratch/users/.../training/nf-training/data/ggal/liver_2.fq]]
-[lung, /scratch/users/.../work/64/90a77a5f1ed5a0000f6620fd1fab9a/salmon_idx, [/scratch/users/.../training/nf-training/data/ggal/lung_1.fq, /scratch/users/.../training/nf-training/data/ggal/lung_2.fq]]
-[gut, /scratch/users/.../work/37/352b00bfb71156a9250150428ddf1d/salmon_idx, [/scratch/users/.../training/nf-training/data/ggal/gut_1.fq, /scratch/users/.../training/nf-training/data/ggal/gut_2.fq]]
+[liver, /scratch/users/.../work/cf/42458b80e050a466d62baf99d0c1cf/salmon_idx, [/scratch/users/.../<TODO_nxfdata>/liver_1.fq, /scratch/users/.../<TODO_nxfdata>/liver_2.fq]]
+[lung, /scratch/users/.../work/64/90a77a5f1ed5a0000f6620fd1fab9a/salmon_idx, [/scratch/users/.../<TODO_nxfdata>/lung_1.fq, /scratch/users/.../<TODO_nxfdata>/lung_2.fq]]
+[gut, /scratch/users/.../work/37/352b00bfb71156a9250150428ddf1d/salmon_idx, [/scratch/users/.../<TODO_nxfdata>/gut_1.fq, /scratch/users/.../<TODO_nxfdata>/gut_2.fq]]
 ```
 
 Use `quant_inputs_ch` as the input for the `QT` process within the workflow block. 
@@ -488,8 +488,8 @@ reads_ch = Channel.fromFilePairs("$params.reads")
 
 Now, move the `/scratch/users/.../nf-training/data/ggal/lung_2.fq` file into another directory so the folder contains one lung `.fq` file: 
 ```default
->>> mv /scratch/users/.../training/nf-training/data/ggal/lung_2.fq .
->>> ls /scratch/users/.../training/nf-training/data/ggal
+>>> mv /scratch/users/.../<TODO_nxfdata>/lung_2.fq .
+>>> ls /scratch/users/.../<TODO_nxfdata>
 gut_1.fq
 gut_2.fq
 gut.transcriptome.fa
@@ -510,9 +510,9 @@ Then, use `groupTuple()` to create channels containing both single and paired `.
 
 Expected output:
 ```default
-[lung, [/scratch/users/.../training/nf-training/data/ggal/lung_1.fq]]
-[gut, [/scratch/users/.../training/nf-training/data/ggal/gut_1.fq, /scratch/users/.../training/nf-training/data/ggal/gut_2.fq]]
-[liver, [/scratch/users/.../training/nf-training/data/ggal/liver_1.fq, /scratch/users/.../training/nf-training/data/ggal/liver_2.fq]]
+[lung, [/scratch/users/.../<TODO_nxfdata>/lung_1.fq]]
+[gut, [/scratch/users/.../<TODO_nxfdata>/gut_1.fq, /scratch/users/.../<TODO_nxfdata>/gut_2.fq]]
+[liver, [/scratch/users/.../<TODO_nxfdata>/liver_1.fq, /scratch/users/.../<TODO_nxfdata>/liver_2.fq]]
 ```
 
 Inside the `map` function, the following can be used to extract the sample name from the `.fq` files. `file` is the local variable defined inside the function that represents each `.fq` file. The `getName()` method will return the file name without the full path, and `replaceAll` is used to remove the `_2.fq` and `_1.fq` file suffixes. 
@@ -528,7 +528,7 @@ For a full list of Nextflow file attributes, see [here](https://www.nextflow.io/
 The `fromPath` channel is used to read all `.fq` files separately. The `map` function is then used to create a two-element tuple where the first element is a grouping key and the second element is the list of `.fq` file(s). 
 
 ```default
-reads_ch = Channel.fromPath("/home/sli/nextflow_training/training/nf-training/data/ggal/*.fq")
+reads_ch = Channel.fromPath("/home/sli/nextflow_training/<TODO_nxfdata>/*.fq")
   .map { file ->
     def group_key = file.getName().replaceAll(/_2.fq/,'').replaceAll(/_1.fq/,'')
     [group_key, file]
