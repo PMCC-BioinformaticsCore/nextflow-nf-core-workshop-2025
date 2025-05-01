@@ -54,12 +54,25 @@ The following sections of the documentation can be used to understand what the p
 |                                                            | processes         | - tool              |
 +------------------------------------------------------------+-------------------+---------------------+
 
-
+::: callout-tip
 ### **Challenge**{.unlisted}
 
 View the parameters for the `nf-core/rnaseq` workflow using the command line for the specific version `3.14.0`
 
 :::
+
+::: {.callout-caution collapse="true"}
+
+### Solution
+
+The `nf-core/rnaseq` workflow parameters can be printed using the `run` command and the `--help` option:
+
+```default
+nextflow run nf-core/rnaseq -r 3.14.0 --help
+```
+
+:::
+
 
 #### **Pipeline structure**
 
@@ -131,6 +144,7 @@ Most of us will need to adjust the default run command for our experiments. Toda
 3. Customising the execution of some processes 
 4. Specifying the computing resource limitations of our instances (2 CPUs, 8 Gb RAM)
 
+<TODO_data where will the data be?>
 Our input fastq files (`fastq/`), reference data (`ref/`), and full sample sheet (`samplesheet.csv`) are already available on the cluster. Take a look at the files: 
 
 ```default
@@ -218,6 +232,8 @@ Now that we have prepared our input and reference data, we will customise the ty
 The parameters we will use are:
 
 * `-profile <TODO_container>`
+* `--input samplesheet.csv`
+* `--outdir ./lesson2.1`
 * `--skip_markduplicates true`
 * `--save_trimmed true`
 * `--save_unaligned true`
@@ -460,7 +476,7 @@ All final outputs will be presented in a directory specified by the `--outdir` f
 
 ::: callout-warning
 ### Before executing this run command
-If you haven't done so already, check that the run from lession 2.1.3 has completed successfully.
+If you haven't done so already, check that the run from lession 2.1.3<TODO_check> has completed successfully.
 
 You run should have a summary message similar to below:
 
